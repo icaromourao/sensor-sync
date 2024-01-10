@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: '#F2F5F9',
   },
-  homeContainer: {
+  container: {
     flex: 1,
   },
   homeCard: {
