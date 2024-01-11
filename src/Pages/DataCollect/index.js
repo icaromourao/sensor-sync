@@ -14,6 +14,28 @@ export default function DataCollect() {
         <Text style={styles.statusBoardStatus}>Ativa</Text>
       </View>
 
+      <View style={styles.coordinatesContainer}>
+        <View style={styles.coordinatesItem}>
+          <Image
+            style={styles.coordinatesImage}
+            source={require('../../../assets/coordinates.png')}/>
+          <Text style={styles.coordinatesText}>X: 0,00165 m/s²</Text>
+        </View>
+        <View style={styles.coordinatesItem}>
+          <Image
+            style={styles.coordinatesImage}
+            source={require('../../../assets/coordinates.png')}/>
+          <Text style={styles.coordinatesText}>Y: 0,00165 m/s²</Text>
+        </View>
+        <View style={styles.coordinatesItem}>
+          <Image
+            style={styles.coordinatesImage}
+            source={require('../../../assets/coordinates.png')}/>
+          <Text style={styles.coordinatesText}>Z: 0,00165 m/s²</Text>
+        </View>
+      </View>
+
+
       <View style={styles.buttonsContainer}>
         <Button
           backgroundColor='#28A745'
