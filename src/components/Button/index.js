@@ -8,7 +8,9 @@ export default function Button(props) {
           backgroundColor: props.backgroundColor,
           borderWidth: props.borderWidth,
           borderColor: props.borderColor,
-          marginBottom: Number.parseInt(props.marginBottom, 10),
+          marginBottom: props.marginBottom
+            ? Number.parseInt(props.marginBottom, 10)
+            : 0,
         }
       ]}
       activeOpacity={0.6}
