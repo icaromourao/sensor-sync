@@ -1,19 +1,13 @@
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 import styles from "../DataCollect/styles";
 import Button from "../../components/Button";
+import SensorSelect from "../../components/SensorSelect";
 
 export default function DataCollect() {
   return (
     <View style={styles.container}>
 
-      <View style={styles.selectContainer}>
-        <View style={styles.selectItem}>
-          <Text style={styles.selectItemText}>Acelerômetro</Text>
-        </View>
-        <View style={styles.selectItem}>
-          <Text style={styles.selectItemText}>Magnetômetro</Text>
-        </View>
-      </View>
+      <SensorSelect/>
 
       <View style={styles.statusBoard}>
         <Text style={styles.statusBoardTitle}>Coleta de dados</Text>
