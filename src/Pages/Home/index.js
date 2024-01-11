@@ -28,7 +28,9 @@ export default function Home({ navigation }) {
           </View>
         </Pressable>
 
-        <Pressable>
+        <Pressable onPress={() => {
+          navigation.navigate('DataVisualize');
+        }}>
           <View style={styles.homeCard}>
             <Image
               style={{ width: 65, height: 65, marginRight: 16 }}
