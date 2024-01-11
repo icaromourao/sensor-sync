@@ -8,7 +8,7 @@ import {
   VerticalAxis } from 'react-native-responsive-linechart'
 import Button from "../../components/Button";
 
-export default function DataVisualize() {
+export default function DataVisualize({ navigation }) {
 
   const DATA = [
     { x: -2, y: 15 },
@@ -94,7 +94,9 @@ export default function DataVisualize() {
           title='Ver tabela'
           backgroundColor='#B947FF'
           textColor='#FFFFFF'
-          onPress={ () => {} }>
+          onPress={ () => {
+            navigation.navigate('TableView');
+          } }>
         </Button>
       </View>
     </View>
