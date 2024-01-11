@@ -7,8 +7,8 @@ import {
   VerticalAxis,
 } from 'react-native-responsive-linechart';
 import SensorSelect from '../../components/SensorSelect';
-import styles from './styles';
 import Button from '../../components/Button';
+import styles from './styles';
 
 export default function DataVisualize({ navigation }) {
   const DATA = [
@@ -30,7 +30,10 @@ export default function DataVisualize({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <SensorSelect />
+
+        <View style={{ height: 60 }}>
+          <SensorSelect />
+        </View>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
