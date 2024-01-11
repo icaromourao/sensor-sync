@@ -8,11 +8,11 @@ export default class TableView extends Component {
     super(props);
     this.state = {
       tableHead: ['ID', 'X', 'Y', 'Z'],
-    }
+    };
   }
 
   render() {
-    const state = this.state;
+    const { state } = this;
     const tableData = [];
     for (let i = 0; i < 30; i += 1) {
       const rowData = [];
@@ -28,18 +28,20 @@ export default class TableView extends Component {
           <Row
             data={state.tableHead}
             style={styles.header}
-            textStyle={styles.headerText}/>
+            textStyle={styles.headerText}
+          />
         </Table>
         <ScrollView
           style={styles.dataWrapper}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Table borderStyle={styles.bodyTable}>
             {
               tableData.map((rowData, index) => (
                 <Row
-                  key={index}
+                  key={rowData}
                   data={rowData}
-                  style={[styles.row, index%2 && {backgroundColor: '#F7EBFF'}]}
+                  style={[styles.row, index % 2 && { backgroundColor: '#F7EBFF' }]}
                   textStyle={styles.bodyText}
                 />
               ))

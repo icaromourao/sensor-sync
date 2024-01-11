@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/Pages/Home';
@@ -13,24 +14,24 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={ Home }
+          component={Home}
           options={{ title: 'SensorSync' }}
-          />
+        />
         <Stack.Screen
           name="DataCollect"
-          component={ DataCollect }
+          component={DataCollect}
           options={{ title: 'Coletar dados' }}
-          />
+        />
         <Stack.Screen
           name="DataVisualize"
-          component={ DataVisualize }
+          component={DataVisualize}
           options={{ title: 'Ver dados' }}
-          />
+        />
         <Stack.Screen
           name="TableView"
-          component={ TableView }
+          component={TableView}
           options={{ title: 'Tabela' }}
-          />
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

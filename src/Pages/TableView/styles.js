@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,18 +14,18 @@ const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontWeight: '300',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   dataWrapper: {
-    marginTop: -1
+    marginTop: -1,
   },
   row: {
     height: 30,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   headerTable: {
     borderWidth: 1,
-    borderColor: '#C1C0B9'
+    borderColor: '#C1C0B9',
   },
   bodyText: {
     textAlign: 'center',
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   bodyTable: {
     borderWidth: 1,
-    borderColor: '#C1C0B9'
-  }
+    borderColor: '#C1C0B9',
+  },
 });
 
 export default styles;

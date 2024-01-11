@@ -1,15 +1,16 @@
-import { Text, ScrollView, View } from "react-native";
-import SensorSelect from "../../components/SensorSelect";
-import styles from './styles';
+import React from 'react';
+import { Text, ScrollView, View } from 'react-native';
 import {
   Chart,
   Line,
   HorizontalAxis,
-  VerticalAxis } from 'react-native-responsive-linechart'
-import Button from "../../components/Button";
+  VerticalAxis,
+} from 'react-native-responsive-linechart';
+import SensorSelect from '../../components/SensorSelect';
+import styles from './styles';
+import Button from '../../components/Button';
 
 export default function DataVisualize({ navigation }) {
-
   const DATA = [
     { x: -2, y: 15 },
     { x: -1, y: 10 },
@@ -29,61 +30,80 @@ export default function DataVisualize({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <SensorSelect/>
+        <SensorSelect />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
           onStartShouldSetResponder={() => true}
-          style={styles.chartsContainer}>
+          style={styles.chartsContainer}
+        >
           <Text style={styles.chartTitle}>Coordenada X</Text>
           <Chart
-            disableGestures={true}
+            disableGestures
             style={styles.chart}
             data={DATA}
-            padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+            padding={{
+              left: 40, bottom: 20, right: 20, top: 20,
+            }}
             xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}>
+            yDomain={{ min: 0, max: 20 }}
+          >
             <VerticalAxis
               tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+            />
             <HorizontalAxis tickCount={5} />
             <Line theme={{
               stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 }} }} />
+              scatter: { default: { width: 2, height: 4, rx: 2 } },
+            }}
+            />
           </Chart>
 
           <Text style={styles.chartTitle}>Coordenada Y</Text>
           <Chart
-            disableGestures={true}
+            disableGestures
             style={styles.chart}
             data={DATA}
-            padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+            padding={{
+              left: 40, bottom: 20, right: 20, top: 20,
+            }}
             xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}>
+            yDomain={{ min: 0, max: 20 }}
+          >
             <VerticalAxis
               tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+            />
             <HorizontalAxis tickCount={5} />
             <Line theme={{
               stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 }} }} />
+              scatter: { default: { width: 2, height: 4, rx: 2 } },
+            }}
+            />
           </Chart>
 
           <Text style={styles.chartTitle}>Coordenada Z</Text>
           <Chart
-            disableGestures={true}
+            disableGestures
             style={styles.chart}
             data={DATA}
-            padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+            padding={{
+              left: 40, bottom: 20, right: 20, top: 20,
+            }}
             xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}>
+            yDomain={{ min: 0, max: 20 }}
+          >
             <VerticalAxis
               tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+            />
             <HorizontalAxis tickCount={5} />
             <Line theme={{
               stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 }} }} />
+              scatter: { default: { width: 2, height: 4, rx: 2 } },
+            }}
+            />
           </Chart>
 
         </ScrollView>
@@ -91,13 +111,13 @@ export default function DataVisualize({ navigation }) {
       </View>
       <View style={styles.buttonWrapper}>
         <Button
-          title='Ver tabela'
-          backgroundColor='#B947FF'
-          textColor='#FFFFFF'
-          onPress={ () => {
+          title="Ver tabela"
+          backgroundColor="#B947FF"
+          textColor="#FFFFFF"
+          onPress={() => {
             navigation.navigate('TableView');
-          } }>
-        </Button>
+          }}
+        />
       </View>
     </View>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '500',
-  }
+  },
 });
 
 export default styles;
