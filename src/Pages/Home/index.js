@@ -4,12 +4,14 @@ import {
   Text,
   View,
   Pressable } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 import styles from "./styles";
 
 export default function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
+        <StatusBar style="auto"/>
 
         <Pressable onPress={() => {
           navigation.navigate('DataCollect');
