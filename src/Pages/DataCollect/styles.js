@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
   coordinatesText: {
     fontSize: 16,
   },
+  note: {
+    fontSize: 9.89,
+    textAlign: 'center',
+  },
   buttonsContainer: {},
 });
 
