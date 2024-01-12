@@ -7,7 +7,7 @@ const SENSOR_OPTIONS = [
   { id: 1, name: 'Magnetômetro' },
 ];
 
-export default function SensorSelect() {
+export default function SensorSelect({ parentCallback }) {
   const [activeOption, setOption] = useState(0);
 
   return (
@@ -19,6 +19,7 @@ export default function SensorSelect() {
             style={styles.pressable}
             onPress={() => {
               setOption(option.id);
+              parentCallback(option.id);
             }}
           >
             <View style={[
