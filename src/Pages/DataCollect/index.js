@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import SensorSelect from '../../components/SensorSelect';
 import AccelerometerComponent from '../../components/Accelerometer';
 import MagnetometerComponent from '../../components/Magnetometer';
+import Request from '../../helpers/Request';
 
 let ACCELEROMETER_DATA = [];
 let MAGNETOMETER_DATA = [];
@@ -22,6 +23,8 @@ export default function DataCollect() {
   let sensorPage;
   let statusBoard;
   const sensorSelectCallback = (value) => {
+    setIsEnabledAccelerometerDataCollection(false);
+    setIsEnabledMagnetometerDataCollection(false);
     setOption(value);
   };
   const accelerometerCallback = (data) => {
@@ -73,10 +76,30 @@ export default function DataCollect() {
 
   useEffect(() => () => {
     if (ACCELEROMETER_DATA.length !== 0) {
-      console.log('acc', ACCELEROMETER_DATA);
+      Request(
+        'storeAccelerometerData',
+        'POST',
+        { accelerometerData: ACCELEROMETER_DATA },
+      )
+        .then(() => {
+          // do nothing
+        })
+        .catch((error) => {
+          console.log('Api call error: ', error.message);
+        });
     }
     if (MAGNETOMETER_DATA.length !== 0) {
-      console.log('mag', MAGNETOMETER_DATA);
+      Request(
+        'storeMagnetometerData',
+        'POST',
+        { magnetometerData: MAGNETOMETER_DATA },
+      )
+        .then(() => {
+          // do nothing
+        })
+        .catch((error) => {
+          console.log('Api call error: ', error.message);
+        });
     }
     setIsEnabledAccelerometerDataCollection(false);
     setIsEnabledMagnetometerDataCollection(false);
