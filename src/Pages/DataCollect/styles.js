@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  statusBoardStatusDisabled: {
+    color: '#dc3545',
+  },
   buttonsContainer: {},
 });
 

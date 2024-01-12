@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 import Button from '../../components/Button';
@@ -6,31 +6,95 @@ import SensorSelect from '../../components/SensorSelect';
 import AccelerometerComponent from '../../components/Accelerometer';
 import MagnetometerComponent from '../../components/Magnetometer';
 
+let ACCELEROMETER_DATA = [];
+let MAGNETOMETER_DATA = [];
+
 export default function DataCollect() {
   const [activeOption, setOption] = useState(0);
+  const [
+    isEnabledAccelerometerDataCollection,
+    setIsEnabledAccelerometerDataCollection,
+  ] = useState(false);
+  const [
+    isEnabledMagnetometerDataCollection,
+    setIsEnabledMagnetometerDataCollection,
+  ] = useState(false);
   let sensorPage;
-
-  if (activeOption === 0) {
-    sensorPage = <AccelerometerComponent />;
-  } else {
-    sensorPage = <MagnetometerComponent />;
-  }
-
-  const callback = (value) => {
+  let statusBoard;
+  const sensorSelectCallback = (value) => {
     setOption(value);
   };
+  const accelerometerCallback = (data) => {
+    if (isEnabledAccelerometerDataCollection) {
+      ACCELEROMETER_DATA.push(data);
+    }
+  };
+  const magnetometerCallback = (data) => {
+    if (isEnabledMagnetometerDataCollection) {
+      MAGNETOMETER_DATA.push(data);
+    }
+  };
+  const enableDataCollection = () => {
+    if (activeOption === 0) {
+      setIsEnabledAccelerometerDataCollection(true);
+    } else {
+      setIsEnabledMagnetometerDataCollection(true);
+    }
+  };
+  const disableDataCollection = () => {
+    if (activeOption === 0) {
+      setIsEnabledAccelerometerDataCollection(false);
+    } else {
+      setIsEnabledMagnetometerDataCollection(false);
+    }
+  };
+
+  if (activeOption === 0) {
+    sensorPage = <AccelerometerComponent callback={accelerometerCallback} />;
+    statusBoard = (
+      <Text style={[
+        styles.statusBoardStatus,
+        isEnabledAccelerometerDataCollection ? {} : styles.statusBoardStatusDisabled]}
+      >
+        { isEnabledAccelerometerDataCollection ? 'Ativa' : 'Desativada'}
+      </Text>
+    );
+  } else {
+    sensorPage = <MagnetometerComponent callback={magnetometerCallback} />;
+    statusBoard = (
+      <Text style={[
+        styles.statusBoardStatus,
+        isEnabledMagnetometerDataCollection ? {} : styles.statusBoardStatusDisabled]}
+      >
+        { isEnabledMagnetometerDataCollection ? 'Ativa' : 'Desativada'}
+      </Text>
+    );
+  }
+
+  useEffect(() => () => {
+    if (ACCELEROMETER_DATA.length !== 0) {
+      console.log('acc', ACCELEROMETER_DATA);
+    }
+    if (MAGNETOMETER_DATA.length !== 0) {
+      console.log('mag', MAGNETOMETER_DATA);
+    }
+    setIsEnabledAccelerometerDataCollection(false);
+    setIsEnabledMagnetometerDataCollection(false);
+    ACCELEROMETER_DATA = [];
+    MAGNETOMETER_DATA = [];
+  }, []);
 
   return (
     <View style={styles.container}>
 
       <View style={{ height: 60 }}>
-        <SensorSelect parentCallback={callback} />
+        <SensorSelect parentCallback={sensorSelectCallback} />
       </View>
 
       <View>
         <View style={styles.statusBoard}>
           <Text style={styles.statusBoardTitle}>Coleta de dados</Text>
-          <Text style={styles.statusBoardStatus}>Ativa</Text>
+          {statusBoard}
         </View>
 
         {sensorPage}
@@ -41,14 +105,14 @@ export default function DataCollect() {
             textColor="#FFF"
             marginBottom="16"
             title="Ativar Coleta"
-            onPress={() => {}}
+            onPress={() => { enableDataCollection(); }}
           />
           <Button
             backgroundColor="#DC3545"
             textColor="#FFF"
             marginBottom="16"
             title="Desativar Coleta"
-            onPress={() => {}}
+            onPress={() => { disableDataCollection(); }}
           />
           <Button
             title="Ver dados"

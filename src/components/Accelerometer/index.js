@@ -3,7 +3,7 @@ import { Accelerometer } from 'expo-sensors';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
 
-export default function AccelerometerComponent() {
+export default function AccelerometerComponent({ callback }) {
   const [{ x, y, z }, setData] = useState({ x: 0, y: 0, z: 0 });
   const [subscription, setSubscription] = useState(null);
 
@@ -19,8 +19,9 @@ export default function AccelerometerComponent() {
 
   useEffect(() => {
     subscribe();
+    callback({ x, y, z });
     return () => unsubscribe();
-  }, []);
+  }, [x, y, z]);
 
   return (
     <View style={styles.coordinatesContainer}>
