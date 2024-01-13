@@ -137,14 +137,6 @@ export default function DataCollect() {
             title="Desativar Coleta"
             onPress={() => { disableDataCollection(); }}
           />
-          <Button
-            title="Ver dados"
-            marginBottom="16"
-            borderWidth="1"
-            borderColor="#1B1B1B"
-            textColor="#1B1B1B"
-            onPress={() => {}}
-          />
         </View>
       </View>
     </View>
