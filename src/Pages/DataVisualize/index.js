@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import SensorSelect from '../../components/SensorSelect';
 import Button from '../../components/Button';
 import styles from './styles';
@@ -45,14 +45,18 @@ export default function DataVisualize({ navigation }) {
     Request('accelerometer', 'GET')
       .then((data) => {
         setEntireAccelerometerData(data);
-        processData(data, 0);
+        if (data.length !== 0) {
+          processData(data, 0);
+        }
       });
   };
   const getMagnetometerData = () => {
     Request('magnetometer', 'GET')
       .then((data) => {
         setEntireMagnetometerData(data);
-        processData(data, 1);
+        if (data.length !== 0) {
+          processData(data, 1);
+        }
       });
   };
   const sensorSelectCallback = (value) => {
@@ -67,6 +71,11 @@ export default function DataVisualize({ navigation }) {
   };
 
   const chartsJSX = [];
+  const noDataToShow = (
+    <Text style={{ textAlign: 'center' }}>
+      Não há dados para serem exibidos
+    </Text>
+  );
 
   if (accelerometerData.length !== 0 && activeOption === 0) {
     accelerometerChartsData.forEach((chartData) => {
@@ -122,7 +131,7 @@ export default function DataVisualize({ navigation }) {
           onStartShouldSetResponder={() => true}
           style={styles.chartsContainer}
         >
-          {chartsJSX}
+          {chartsJSX.length !== 0 ? chartsJSX : noDataToShow}
         </ScrollView>
 
       </View>
