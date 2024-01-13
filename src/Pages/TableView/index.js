@@ -7,46 +7,54 @@ export default class TableView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: props.route.params.data,
       tableHead: ['ID', 'X', 'Y', 'Z'],
+      widthArr: [100, 180, 180, 180],
     };
   }
 
   render() {
     const { state } = this;
-    const tableData = [];
-    for (let i = 0; i < 30; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 4; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
-      tableData.push(rowData);
-    }
+    let tableData = [];
+    const desiredKeys = ['_id', 'x', 'y', 'z'];
+
+    tableData = state.data.map(
+      (item) => desiredKeys.map(
+        (key) => (key === '_id' ? item[key].slice(-5) : item[key]),
+      ),
+    );
 
     return (
       <View style={styles.container}>
-        <Table borderStyle={styles.headerTable}>
-          <Row
-            data={state.tableHead}
-            style={styles.header}
-            textStyle={styles.headerText}
-          />
-        </Table>
-        <ScrollView
-          style={styles.dataWrapper}
-          showsVerticalScrollIndicator={false}
-        >
-          <Table borderStyle={styles.bodyTable}>
-            {
-              tableData.map((rowData, index) => (
-                <Row
-                  key={rowData}
-                  data={rowData}
-                  style={[styles.row, index % 2 && { backgroundColor: '#F7EBFF' }]}
-                  textStyle={styles.bodyText}
-                />
-              ))
-            }
-          </Table>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+          <View>
+            <Table borderStyle={styles.headerTable}>
+              <Row
+                data={state.tableHead}
+                widthArr={state.widthArr}
+                style={styles.header}
+                textStyle={styles.headerText}
+              />
+            </Table>
+            <ScrollView
+              style={styles.dataWrapper}
+              showsVerticalScrollIndicator={false}
+            >
+              <Table borderStyle={styles.bodyTable}>
+                {
+                  tableData.map((rowData, index) => (
+                    <Row
+                      key={rowData}
+                      data={rowData}
+                      widthArr={state.widthArr}
+                      style={[styles.row, index % 2 && { backgroundColor: '#F7EBFF' }]}
+                      textStyle={styles.bodyText}
+                    />
+                  ))
+                }
+              </Table>
+            </ScrollView>
+          </View>
         </ScrollView>
       </View>
     );

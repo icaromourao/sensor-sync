@@ -10,6 +10,8 @@ export default function DataVisualize({ navigation }) {
   const [activeOption, setOption] = useState(0);
   const [accelerometerData, setAccelerometerData] = useState([]);
   const [magnetometerData, setMagnetometerData] = useState([]);
+  const [entireAccelerometerData, setEntireAccelerometerData] = useState([]);
+  const [entireMagnetometerData, setEntireMagnetometerData] = useState([]);
   const accelerometerChartsData = [
     { id: 'AccX', title: 'Coordernada X', data: accelerometerData[0] },
     { id: 'AccY', title: 'Coordernada Y', data: accelerometerData[1] },
@@ -42,12 +44,14 @@ export default function DataVisualize({ navigation }) {
   const getAccelerometerData = () => {
     Request('accelerometer', 'GET')
       .then((data) => {
+        setEntireAccelerometerData(data);
         processData(data, 0);
       });
   };
   const getMagnetometerData = () => {
     Request('magnetometer', 'GET')
       .then((data) => {
+        setEntireMagnetometerData(data);
         processData(data, 1);
       });
   };
@@ -129,9 +133,9 @@ export default function DataVisualize({ navigation }) {
           textColor="#FFFFFF"
           onPress={() => {
             if (activeOption === 0) {
-              navigation.navigate('TableView');
+              navigation.navigate('TableView', { data: entireAccelerometerData });
             } else {
-              navigation.navigate('TableView');
+              navigation.navigate('TableView', { data: entireMagnetometerData });
             }
           }}
         />
