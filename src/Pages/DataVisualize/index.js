@@ -1,38 +1,116 @@
-import React from 'react';
-import { Text, ScrollView, View } from 'react-native';
-import {
-  Chart,
-  Line,
-  HorizontalAxis,
-  VerticalAxis,
-} from 'react-native-responsive-linechart';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View } from 'react-native';
 import SensorSelect from '../../components/SensorSelect';
 import Button from '../../components/Button';
 import styles from './styles';
+import Request from '../../helpers/Request';
+import MyChart from '../../components/MyChart';
 
 export default function DataVisualize({ navigation }) {
-  const DATA = [
-    { x: -2, y: 15 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 1, y: 7 },
-    { x: 2, y: 6 },
-    { x: 3, y: 8 },
-    { x: 4, y: 10 },
-    { x: 5, y: 8 },
-    { x: 6, y: 12 },
-    { x: 7, y: 14 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
+  const [activeOption, setOption] = useState(0);
+  const [accelerometerData, setAccelerometerData] = useState([]);
+  const [magnetometerData, setMagnetometerData] = useState([]);
+  const accelerometerChartsData = [
+    { id: 'AccX', title: 'Coordernada X', data: accelerometerData[0] },
+    { id: 'AccY', title: 'Coordernada Y', data: accelerometerData[1] },
+    { id: 'AccZ', title: 'Coordernada Z', data: accelerometerData[2] },
   ];
+  const magnetometerChartsData = [
+    { id: 'MagX', title: 'Coordernada X', data: magnetometerData[0] },
+    { id: 'MagY', title: 'Coordernada Y', data: magnetometerData[1] },
+    { id: 'MagZ', title: 'Coordernada Z', data: magnetometerData[2] },
+  ];
+  const keysFilter = (data, keys) => data.map((objeto, index) => {
+    const novoObjeto = {};
+    keys.forEach((chave) => {
+      novoObjeto.y = objeto[chave];
+      novoObjeto.x = index + 1;
+    });
+    return novoObjeto;
+  });
+  const processData = (data, dataType) => {
+    const xArray = keysFilter(data, ['x']);
+    const yArray = keysFilter(data, ['y']);
+    const zArray = keysFilter(data, ['z']);
+
+    if (dataType === 0) {
+      setAccelerometerData([xArray, yArray, zArray]);
+    } else {
+      setMagnetometerData([xArray, yArray, zArray]);
+    }
+  };
+  const getAccelerometerData = () => {
+    Request('accelerometer', 'GET')
+      .then((data) => {
+        processData(data, 0);
+      });
+  };
+  const getMagnetometerData = () => {
+    Request('magnetometer', 'GET')
+      .then((data) => {
+        processData(data, 1);
+      });
+  };
+  const sensorSelectCallback = (value) => {
+    setOption(value);
+
+    if (value === 0 && accelerometerData.length === 0) {
+      getAccelerometerData();
+    }
+    if (value === 1 && magnetometerData.length === 0) {
+      getMagnetometerData();
+    }
+  };
+
+  const chartsJSX = [];
+
+  if (accelerometerData.length !== 0 && activeOption === 0) {
+    accelerometerChartsData.forEach((chartData) => {
+      const minXvalue = chartData.data.reduce((prev, curr) => (prev.x < curr.x ? prev : curr)).x;
+      const maxXvalue = chartData.data.reduce((prev, curr) => (prev.x > curr.x ? prev : curr)).x;
+      const minYvalue = chartData.data.reduce((prev, curr) => (prev.y < curr.y ? prev : curr)).y;
+      const maxYvalue = chartData.data.reduce((prev, curr) => (prev.y > curr.y ? prev : curr)).y;
+
+      chartsJSX.push(<MyChart
+        key={chartData.id}
+        title={chartData.title}
+        data={chartData.data}
+        xDomain={{ min: minXvalue, max: maxXvalue }}
+        yDomain={{ min: minYvalue, max: maxYvalue }}
+      />);
+    });
+  }
+  if (magnetometerData.length !== 0 && activeOption === 1) {
+    magnetometerChartsData.forEach((chartData) => {
+      const minXvalue = chartData.data.reduce((prev, curr) => (prev.x < curr.x ? prev : curr)).x;
+      const maxXvalue = chartData.data.reduce((prev, curr) => (prev.x > curr.x ? prev : curr)).x;
+      const minYvalue = chartData.data.reduce((prev, curr) => (prev.y < curr.y ? prev : curr)).y;
+      const maxYvalue = chartData.data.reduce((prev, curr) => (prev.y > curr.y ? prev : curr)).y;
+
+      chartsJSX.push(<MyChart
+        key={chartData.id}
+        title={chartData.title}
+        data={chartData.data}
+        xDomain={{ min: minXvalue, max: maxXvalue }}
+        yDomain={{ min: minYvalue, max: maxYvalue }}
+      />);
+    });
+  }
+
+  useEffect(() => {
+    if (activeOption === 0) {
+      getAccelerometerData();
+    } else {
+      getMagnetometerData();
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
 
         <View style={{ height: 60 }}>
-          <SensorSelect />
+          <SensorSelect parentCallback={sensorSelectCallback} />
         </View>
 
         <ScrollView
@@ -40,75 +118,7 @@ export default function DataVisualize({ navigation }) {
           onStartShouldSetResponder={() => true}
           style={styles.chartsContainer}
         >
-          <Text style={styles.chartTitle}>Coordenada X</Text>
-          <Chart
-            disableGestures
-            style={styles.chart}
-            data={DATA}
-            padding={{
-              left: 40, bottom: 20, right: 20, top: 20,
-            }}
-            xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}
-          >
-            <VerticalAxis
-              tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
-            />
-            <HorizontalAxis tickCount={5} />
-            <Line theme={{
-              stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 } },
-            }}
-            />
-          </Chart>
-
-          <Text style={styles.chartTitle}>Coordenada Y</Text>
-          <Chart
-            disableGestures
-            style={styles.chart}
-            data={DATA}
-            padding={{
-              left: 40, bottom: 20, right: 20, top: 20,
-            }}
-            xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}
-          >
-            <VerticalAxis
-              tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
-            />
-            <HorizontalAxis tickCount={5} />
-            <Line theme={{
-              stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 } },
-            }}
-            />
-          </Chart>
-
-          <Text style={styles.chartTitle}>Coordenada Z</Text>
-          <Chart
-            disableGestures
-            style={styles.chart}
-            data={DATA}
-            padding={{
-              left: 40, bottom: 20, right: 20, top: 20,
-            }}
-            xDomain={{ min: -2, max: 10 }}
-            yDomain={{ min: 0, max: 20 }}
-          >
-            <VerticalAxis
-              tickCount={10}
-              theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
-            />
-            <HorizontalAxis tickCount={5} />
-            <Line theme={{
-              stroke: { color: '#B947FF', width: 2 },
-              scatter: { default: { width: 2, height: 4, rx: 2 } },
-            }}
-            />
-          </Chart>
-
+          {chartsJSX}
         </ScrollView>
 
       </View>
@@ -118,7 +128,11 @@ export default function DataVisualize({ navigation }) {
           backgroundColor="#B947FF"
           textColor="#FFFFFF"
           onPress={() => {
-            navigation.navigate('TableView');
+            if (activeOption === 0) {
+              navigation.navigate('TableView');
+            } else {
+              navigation.navigate('TableView');
+            }
           }}
         />
       </View>

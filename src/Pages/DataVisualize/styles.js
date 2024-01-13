@@ -11,16 +11,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: '#F2F5F9',
   },
-  chartsContainer: {},
-  chartTitle: {
-    fontSize: 16,
-    color: '#1B1B1B',
-  },
-  chart: {
-    height: 200,
-    width: '100%',
-    marginBottom: 32,
-  },
   buttonWrapper: {
     position: 'absolute',
     width: '100%',

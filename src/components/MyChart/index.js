@@ -8,7 +8,9 @@ import {
 } from 'react-native-responsive-linechart';
 import styles from './styles';
 
-export default function MyChart({ data, title }) {
+export default function MyChart({
+  data, title, xDomain, yDomain,
+}) {
   return (
     <View>
       <Text style={styles.chartTitle}>{ title }</Text>
@@ -19,8 +21,8 @@ export default function MyChart({ data, title }) {
         padding={{
           left: 40, bottom: 20, right: 20, top: 20,
         }}
-        xDomain={{ min: -2, max: 10 }}
-        yDomain={{ min: 0, max: 20 }}
+        xDomain={xDomain}
+        yDomain={yDomain}
       >
         <VerticalAxis
           tickCount={10}
