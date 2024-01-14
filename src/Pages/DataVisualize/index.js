@@ -122,7 +122,7 @@ export default function DataVisualize({ navigation }) {
     <View style={styles.container}>
       <View style={styles.contentContainer}>
 
-        <View style={{ height: 60 }}>
+        <View style={{ height: 65 }}>
           <SensorSelect parentCallback={sensorSelectCallback} />
         </View>
 

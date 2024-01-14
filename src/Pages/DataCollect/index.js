@@ -110,7 +110,7 @@ export default function DataCollect() {
   return (
     <View style={styles.container}>
 
-      <View style={{ height: 60 }}>
+      <View style={{ height: 65 }}>
         <SensorSelect parentCallback={sensorSelectCallback} />
       </View>
 
