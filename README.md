@@ -101,3 +101,5 @@ Para a conexão com a API, é necessária a utilização de um arquivo das chave
 1. **Salvar dados por usuário/celular**
 2. **Adicionar mais sensores**
 3. **Melhorar os parâmetros de visualização dos dados nos gráficos e tabelas**
+4. **Melhorar interação com os botões**
+5. **Adicionar loaders ao buscar dados na API**
