@@ -76,7 +76,7 @@ Para a conexão com a API, é necessária a utilização de um arquivo das chave
 
 2. **Para Android:**
 	```bash
-	eas build -p android
+	eas build -p android --profile preview
 	```
 
 3. **Para ambos iOS e Android:**
