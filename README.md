@@ -4,6 +4,8 @@ Este README descreve o aplicativo e fornece instruções passo a passo sobre com
 
 O SensorSync é uma aplicação inovadora que transforma seu smartphone em uma ferramenta de coleta e visualização de dados de sensores. Com este aplicativo, você pode extrair informações de dois sensores do seu dispositivo e armazená-las de forma organizada em um banco de dados integrado. Além disso, a aplicação oferece uma interface intuitiva para visualizar esses dados tanto em formato de gráfico quanto em tabelas, proporcionando uma análise detalhada e compreensível.
 
+### [Ver protótipos de tela](https://www.figma.com/file/Va4G8Ow6rJQY6SHmCBlPr1/SensorSync?type=design&node-id=0%3A1&mode=design&t=wl3hFifQ4sS5UmfN-1)
+
 ## Principais Recursos:
 ### Coleta de Dados de Sensores:
 O SensorSync suporta dois tipos sensores presentes nos smartphones modernos: o acelerômetro e o magnetômetro. Ele permite que você colete dados precisos desses sensores.
