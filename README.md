@@ -44,7 +44,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina antes d
 - [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) - Instale utilizando `npm install -g expo-cli`.
 - [EAS CLI](https://docs.expo.dev/eas-update/getting-started/) - Instale utilizando `npm install --global eas-cli`
 
-Para a conexão com a API, é necessária a utilização de um arquivo de ambiente (.env) com as chaves EXPO_PUBLIC_API_KEY e EXPO_PUBLIC_API_BASE_URL.
+Para a conexão com a API, é necessária a utilização de um arquivo das chaves EXPO_PUBLIC_API_KEY e EXPO_PUBLIC_API_BASE_URL. Você pode adicioná-las no arquivo index.js da pasta api.
 
 ## Passos para buildar e executar localmente
 
