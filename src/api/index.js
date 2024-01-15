@@ -1,0 +1,7 @@
+const EXPO_PUBLIC_API_KEY = '<API_KEY>';
+const EXPO_PUBLIC_API_BASE_URL = '<API_BASE_URL>';
+
+export default {
+  EXPO_PUBLIC_API_KEY,
+  EXPO_PUBLIC_API_BASE_URL,
+};
